@@ -1,59 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI';
+import BookCase from './BookCase';
+import BookList from './BookList';
 import './App.css';
-
-class BookCase extends React.Component {
-    render() {
-        const {books, shelves} = this.props;
-        return (
-            <div className='book-shelf'>
-                <h1>My Reads</h1>
-                <BookShelf books={books} shelves={shelves}/>
-            </div>
-        );
-    }
-}
-
-class BookShelf extends React.Component {
-    render() {
-
-        const {books, shelves} = this.props;
-        const myShelves = shelves.filter((shelf) => shelf.id !== 'search');
-        const searchShelf = shelves.filter((shelf) => shelf.id === 'search');
-
-        return (
-            <div className='bookshelf'>
-                {myShelves.map((shelf) => (
-                    <div key={shelf.id}>
-                        <h2 className='bookshelf-title'>{shelf.title}</h2>
-                        <BookList books={books.filter((book) => book.shelf === shelf.id)} />
-                    </div>
-                ))}
-            </div>
-        );
-    }
-}
-
-class BookList extends React.Component {
-    render() {
-        const {books} = this.props;
-        return (
-            <ol className='books-grid'>
-                {books && books.map((book) => (
-                    <li className='book' key={book.id}>
-
-                        <div className='book-top'>
-                            <img src={book.imageLinks.smallThumbnail} alt=''/>
-                        </div>
-                        <div className='book-title'>{book.title}</div>
-                        <div className='book-authors'>{book.authors}</div>
-                    </li>
-                ))}
-            </ol>
-        );
-    }
-}
 
 class SearchResults extends React.Component {
     render() {
