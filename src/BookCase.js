@@ -5,11 +5,15 @@ import './App.css';
 
 class BookCase extends React.Component {
     render() {
+
         const {books, shelves} = this.props;
+        const myShelves = shelves.filter((shelf) => shelf.id !== 'search');
+
         return (
-            <div className='book-shelf'>
-                <h1>My Reads</h1>
-                <BookShelf books={books} shelves={shelves}/>
+            <div className='book-case'>
+                {myShelves.map((shelf) => (
+                    <BookShelf books={books.filter((book) => book.shelf === shelf.id)} shelf={shelf}/>
+                ))}
             </div>
         );
     }

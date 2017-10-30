@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import BookCase from './BookCase';
-import BookList from './BookList';
+import BookShelf from './BookShelf';
 import './App.css';
 
 class SearchResults extends React.Component {
@@ -10,7 +10,7 @@ class SearchResults extends React.Component {
         const {books} = this.props;
         return (
             <div className='bookshelf'>
-                <BookList books={books} />
+                <BookShelf books={books} shelf='Search results'/>
             </div>
         );
     }
@@ -105,6 +105,7 @@ class MyBooksApp extends React.Component {
     render() {
         return (
             <div className='app'>
+                <h1>My Reads</h1>
                 <SearchBox
                     query={this.state.query}
                     onFilterTextChange={this.handleFilterTextChange}/>
