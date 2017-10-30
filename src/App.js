@@ -16,10 +16,14 @@ class BookCase extends React.Component {
 
 class BookShelf extends React.Component {
     render() {
+
         const {books, shelves} = this.props;
+        const myShelves = shelves.filter((shelf) => shelf.id !== 'search');
+        const searchShelf = shelves.filter((shelf) => shelf.id === 'search');
+
         return (
             <div className='bookshelf'>
-                {shelves.map((shelf) => (
+                {myShelves.map((shelf) => (
                     <div key={shelf.id}>
                         <h2 className='bookshelf-title'>{shelf.title}</h2>
                         <BookList books={books.filter((book) => book.shelf === shelf.id)} />
@@ -35,8 +39,9 @@ class BookList extends React.Component {
         const {books} = this.props;
         return (
             <ol className='books-grid'>
-                {books.map((book) => (
+                {books && books.map((book) => (
                     <li className='book' key={book.id}>
+
                         <div className='book-top'>
                             <img src={book.imageLinks.smallThumbnail} alt=''/>
                         </div>
@@ -49,17 +54,51 @@ class BookList extends React.Component {
     }
 }
 
+class SearchResults extends React.Component {
+    render() {
+        const {books} = this.props;
+        return (
+            <div className='bookshelf'>
+                <BookList books={books} />
+            </div>
+        );
+    }
+}
+
 class SearchBox extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    }
+
+    handleFilterTextChange(e) {
+        this.props.onFilterTextChange(e.target.value);
+    };
+
     render() {
         return (
             <div className='search-books'>
-                Book search
+                <div className='search-books-bar'>
+                    <a className='close-search'>Close</a>
+                    <div className='search-books-input-wrapper'>
+                        <input type='text'
+                            placeholder='Search by title or author'
+                            value={this.props.query}
+                            onChange={this.handleFilterTextChange}/>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
 class MyBooksApp extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    }
 
     state = {
         /**
@@ -80,22 +119,49 @@ class MyBooksApp extends React.Component {
             {
                 id: 'read',
                 title: 'Read'
+            },
+            {
+                id: 'search',
+                title: 'Search Results'
             }
         ],
         books: [],
+        query: '',
+        search: [],
         showSearchPage: false,
+
     };
-    ant;
+
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
             this.setState({books});
         });
     }
 
+    handleFilterTextChange(text) {
+        this.setState({
+            query: text
+        });
+        this.updateQuery(text);
+    }
+
+    updateQuery = (query) => (
+        BooksAPI.search(query).then((data) => {
+            this.setState({search: data});
+        })
+    );
+
     render() {
         return (
             <div className='app'>
-                <BookCase books={this.state.books} shelves={this.state.shelves}/>
+                <SearchBox
+                    query={this.state.query}
+                    onFilterTextChange={this.handleFilterTextChange}/>
+                <SearchResults
+                    books={this.state.search} />
+                <BookCase
+                    shelves={this.state.shelves}
+                    books={this.state.books}/>
             </div>
         );
     }
