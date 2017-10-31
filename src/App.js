@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as BooksAPI from './BooksAPI';
-import BookCase from './BookCase';
-import SearchBox from './SearchBox';
-import SearchResults from './SearchResults';
+import * as BooksAPI from './utils/BooksAPI';
+import BookCase from './components/BookCase';
+import SearchBox from './components/SearchBox';
+import SearchResults from './components/SearchResults';
 import './App.css';
 
 class MyBooksApp extends React.Component {
@@ -16,12 +16,6 @@ class MyBooksApp extends React.Component {
     }
 
     state = {
-        /**
-         * TODO: Instead of using this state variable to keep track of which page
-         * we're on, use the URL in the browser's address bar. This will ensure that
-         * users can use the browser's back and forward buttons to navigate between
-         * pages, as well as provide a good URL they can bookmark and share.
-         */
         shelves: [
             {
                 id: 'currentlyReading',

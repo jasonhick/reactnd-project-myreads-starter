@@ -1,6 +1,5 @@
 import React from 'react';
-import BookShelf from './BookShelf';
-import './App.css';
+import BookShelf from './../BookShelf';
 
 class SearchResults extends React.Component {
     render() {

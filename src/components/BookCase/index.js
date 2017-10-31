@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BookShelf from './BookShelf';
-import './App.css';
+import BookShelf from './../BookShelf';
 
 class BookCase extends React.Component {
     render() {
