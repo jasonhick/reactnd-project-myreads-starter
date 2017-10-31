@@ -1,48 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import BookCase from './BookCase';
-import BookShelf from './BookShelf';
+import SearchBox from './SearchBox';
+import SearchResults from './SearchResults';
 import './App.css';
-
-class SearchResults extends React.Component {
-    render() {
-        const {books} = this.props;
-        return (
-            <div className='bookshelf'>
-                <BookShelf books={books} shelf='Search results'/>
-            </div>
-        );
-    }
-}
-
-class SearchBox extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    }
-
-    handleFilterTextChange(e) {
-        this.props.onFilterTextChange(e.target.value);
-    };
-
-    render() {
-        return (
-            <div className='search-books'>
-                <div className='search-books-bar'>
-                    <a className='close-search'>Close</a>
-                    <div className='search-books-input-wrapper'>
-                        <input type='text'
-                            placeholder='Search by title or author'
-                            value={this.props.query}
-                            onChange={this.handleFilterTextChange}/>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
 
 class MyBooksApp extends React.Component {
 
@@ -80,7 +44,87 @@ class MyBooksApp extends React.Component {
         query: '',
         search: [],
         showSearchPage: false,
-
+        keywords: [
+            'Android',
+            'Art',
+            'Artificial Intelligence',
+            'Astronomy',
+            'Austen',
+            'Baseball',
+            'Basketball',
+            'Bhagat',
+            'Biography',
+            'Brief',
+            'Business',
+            'Camus',
+            'Cervantes',
+            'Christie',
+            'Classics',
+            'Comics',
+            'Cook',
+            'Cricket',
+            'Cycling',
+            'Desai',
+            'Design',
+            'Development',
+            'Digital Marketing',
+            'Drama',
+            'Drawing',
+            'Dumas',
+            'Education',
+            'Everything',
+            'Fantasy',
+            'Film',
+            'Finance',
+            'First',
+            'Fitness',
+            'Football',
+            'Future',
+            'Games',
+            'Gandhi',
+            'Homer',
+            'Horror',
+            'Hugo',
+            'Ibsen',
+            'Journey',
+            'Kafka',
+            'King',
+            'Lahiri',
+            'Larsson',
+            'Learn',
+            'Literary Fiction',
+            'Make',
+            'Manage',
+            'Marquez',
+            'Money',
+            'Mystery',
+            'Negotiate',
+            'Painting',
+            'Philosophy',
+            'Photography',
+            'Poetry',
+            'Production',
+            'Programming',
+            'React',
+            'Redux',
+            'River',
+            'Robotics',
+            'Rowling',
+            'Satire',
+            'Science Fiction',
+            'Shakespeare',
+            'Singh',
+            'Swimming',
+            'Tale',
+            'Thrun',
+            'Time',
+            'Tolstoy',
+            'Travel',
+            'Ultimate',
+            'Virtual Reality',
+            'Web Development',
+            'iOS'
+        ]
     };
 
     componentDidMount() {
@@ -104,17 +148,35 @@ class MyBooksApp extends React.Component {
 
     render() {
         return (
-            <div className='app'>
-                <h1>My Reads</h1>
-                <SearchBox
-                    query={this.state.query}
-                    onFilterTextChange={this.handleFilterTextChange}/>
-                <SearchResults
-                    books={this.state.search} />
-                <BookCase
-                    shelves={this.state.shelves}
-                    books={this.state.books}/>
-            </div>
+
+        <div className='app'>
+
+            <Route exact path='/' render={() => (
+                <div className='list-books'>
+                    <div className='list-books-title'>
+                        <h1>MyReads</h1>
+                    </div>
+                    <div className='list-books-content'>
+                        <BookCase
+                            shelves={this.state.shelves}
+                            books={this.state.books}/>
+                    </div>
+                    <div className='open-search'>
+                        <Link to='/search'>Add a book</Link>
+                    </div>
+                </div>
+            )}/>
+            <Route exact path='/search' render={() => (
+                <div>
+                    <SearchBox
+                        query={this.state.query}
+                        onFilterTextChange={this.handleFilterTextChange}/>
+                    <SearchResults
+                        books={this.state.search} />
+                </div>
+            )}/>
+
+        </div>
         );
     }
 }

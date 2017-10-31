@@ -12,7 +12,7 @@ class BookCase extends React.Component {
         return (
             <div className='book-case'>
                 {myShelves.map((shelf) => (
-                    <BookShelf books={books.filter((book) => book.shelf === shelf.id)} shelf={shelf}/>
+                    <BookShelf books={books.filter((book) => book.shelf === shelf.id)} shelf={shelf} key={shelf.id}/>
                 ))}
             </div>
         );
