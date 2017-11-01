@@ -13,6 +13,7 @@ class MyBooksApp extends React.Component {
     constructor(props) {
         super(props);
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+        this.handleMoveBook = this.handleMoveBook.bind(this);
     }
 
     state = {
@@ -30,95 +31,14 @@ class MyBooksApp extends React.Component {
                 title: 'Read'
             },
             {
-                id: 'search',
-                title: 'Search Results'
+                id: 'none',
+                title: 'None'
             }
         ],
         books: [],
         query: '',
         search: [],
         showSearchPage: false,
-        keywords: [
-            'Android',
-            'Art',
-            'Artificial Intelligence',
-            'Astronomy',
-            'Austen',
-            'Baseball',
-            'Basketball',
-            'Bhagat',
-            'Biography',
-            'Brief',
-            'Business',
-            'Camus',
-            'Cervantes',
-            'Christie',
-            'Classics',
-            'Comics',
-            'Cook',
-            'Cricket',
-            'Cycling',
-            'Desai',
-            'Design',
-            'Development',
-            'Digital Marketing',
-            'Drama',
-            'Drawing',
-            'Dumas',
-            'Education',
-            'Everything',
-            'Fantasy',
-            'Film',
-            'Finance',
-            'First',
-            'Fitness',
-            'Football',
-            'Future',
-            'Games',
-            'Gandhi',
-            'Homer',
-            'Horror',
-            'Hugo',
-            'Ibsen',
-            'Journey',
-            'Kafka',
-            'King',
-            'Lahiri',
-            'Larsson',
-            'Learn',
-            'Literary Fiction',
-            'Make',
-            'Manage',
-            'Marquez',
-            'Money',
-            'Mystery',
-            'Negotiate',
-            'Painting',
-            'Philosophy',
-            'Photography',
-            'Poetry',
-            'Production',
-            'Programming',
-            'React',
-            'Redux',
-            'River',
-            'Robotics',
-            'Rowling',
-            'Satire',
-            'Science Fiction',
-            'Shakespeare',
-            'Singh',
-            'Swimming',
-            'Tale',
-            'Thrun',
-            'Time',
-            'Tolstoy',
-            'Travel',
-            'Ultimate',
-            'Virtual Reality',
-            'Web Development',
-            'iOS'
-        ]
     };
 
     componentDidMount() {
@@ -134,9 +54,31 @@ class MyBooksApp extends React.Component {
         this.updateQuery(text);
     }
 
+    handleMoveBook(book, shelf) {
+        BooksAPI.update(book, shelf).then(() => {
+            book.shelf = shelf;
+            this.setState(state => ({
+                books: state.books.filter(b => b.id !== book.id).concat([book]),
+            }));
+        });
+    }
+
     updateQuery = (query) => (
-        BooksAPI.search(query).then((data) => {
-            this.setState({search: data});
+        BooksAPI.search(query.trim()).then((searchResults) => {
+
+            const {books} = this.state;
+
+            // Before setting state, update the shelf of each book
+            // Iterate over each search result
+            // Check if its included in mybooks
+            // Yes ? set the shelf : set the shelf to none
+            // Finally, add the search results to state
+            searchResults.map((result) => {
+                let currentBook = books.find((book) => book.id === result.id);
+                result.shelf = (currentBook) ? currentBook.shelf : 'none';
+            });
+
+            this.setState({search: searchResults});
         })
     );
 
@@ -153,7 +95,8 @@ class MyBooksApp extends React.Component {
                     <div className='list-books-content'>
                         <BookCase
                             shelves={this.state.shelves}
-                            books={this.state.books}/>
+                            books={this.state.books}
+                            onMoveBook={this.handleMoveBook}/>
                     </div>
                     <div className='open-search'>
                         <Link to='/search'>Add a book</Link>
@@ -166,7 +109,9 @@ class MyBooksApp extends React.Component {
                         query={this.state.query}
                         onFilterTextChange={this.handleFilterTextChange}/>
                     <SearchResults
-                        books={this.state.search} />
+                        books={this.state.search}
+                        shelves={this.state.shelves}
+                        onMoveBook={this.handleMoveBook}/>
                 </div>
             )}/>
 

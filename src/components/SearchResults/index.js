@@ -3,10 +3,14 @@ import BookShelf from './../BookShelf';
 
 class SearchResults extends React.Component {
     render() {
-        const {books} = this.props;
+        const {books, shelves, onMoveBook} = this.props;
         return (
             <div className='bookshelf'>
-                <BookShelf books={books} shelf='Search results'/>
+                <BookShelf
+                    books={books}
+                    currentShelf='none'
+                    shelves={shelves}
+                    onMoveBook={onMoveBook}/>
             </div>
         );
     }
