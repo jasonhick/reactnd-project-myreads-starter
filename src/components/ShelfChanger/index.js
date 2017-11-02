@@ -7,13 +7,13 @@ class ShelfChanger extends React.Component {
         const {book, shelves, currentShelf, onMoveBook} = this.props;
         let selectValue = currentShelf || 'none';
 
-        let handleOnChange = event => {
-            onMoveBook(book, event.target.value);
+        let handleOnChange = e => {
+            onMoveBook(book, e.target.value);
         };
 
         return (
             <div className='book-shelf-changer'>
-                <select defaultValue={selectValue} onChange={event => handleOnChange(event)}>
+                <select defaultValue={selectValue} onChange={e => handleOnChange(e)}>
                     <option disabled>Move to...</option>
                     {shelves && shelves.map((shelf) => (
                         <option value={shelf.id} key={shelf.id}>{shelf.title}</option>

@@ -2,8 +2,11 @@ import React from 'react';
 import ShelfChanger from './../ShelfChanger';
 
 class Book extends React.Component {
+
     render() {
+
         const {book, shelves, onMoveBook} = this.props;
+
         return (
             <li className='book'>
                 <div className='book-top'>

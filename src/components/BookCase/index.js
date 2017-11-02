@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import BookShelf from './../BookShelf';
 
 class BookCase extends React.Component {
+
     render() {
 
         const {books, shelves, onMoveBook} = this.props;
