@@ -19,11 +19,16 @@ class Book extends React.Component {
     render() {
 
         const {book, shelves, onMoveBook} = this.props;
+        const bookCover = book.imageLinks && book.imageLinks.thumbnail ? book.imageLinks.thumbnail : 'http://via.placeholder.com/130x200?text=404';
 
         return (
             <li className='book'>
                 <div className='book-top'>
-                    <div className='book-cover' style={{width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}></div>
+                    <a href={book.previewLink} target='_new'>
+                        <img className='book-cover'
+                            src={bookCover}
+                            alt={book.title}/>
+                    </a>
                     <ShelfChanger
                         book={book}
                         currentShelf={book.shelf}
@@ -31,6 +36,7 @@ class Book extends React.Component {
                         onMoveBook={onMoveBook}/>
                 </div>
                 <div className='book-title'>{book.title}</div>
+                <div className='book-title'>{book.subtitle}</div>
                 <div className='book-authors'>{this.getAuthors(book.authors)}</div>
             </li>
         );
