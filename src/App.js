@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import * as BooksAPI from './utils/BooksAPI';
 import BookCase from './components/BookCase';
 import SearchBox from './components/SearchBox';

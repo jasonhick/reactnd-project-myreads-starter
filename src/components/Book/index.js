@@ -3,6 +3,19 @@ import ShelfChanger from './../ShelfChanger';
 
 class Book extends React.Component {
 
+    /**
+     * [getAuthors] - returns a list of correclty formatted authors
+     * @param  {array} arr the list of authors
+     * @return {string}    formatted list of authors
+     */
+    getAuthors = (arr) => {
+        if (arr) {
+            return arr.join('\r\n');
+        } else {
+            return 'Unknown author';
+        }
+    };
+
     render() {
 
         const {book, shelves, onMoveBook} = this.props;
@@ -18,7 +31,7 @@ class Book extends React.Component {
                         onMoveBook={onMoveBook}/>
                 </div>
                 <div className='book-title'>{book.title}</div>
-                <div className='book-authors'>{book.authors.join('\r\n')}</div>
+                <div className='book-authors'>{this.getAuthors(book.authors)}</div>
             </li>
         );
     }
