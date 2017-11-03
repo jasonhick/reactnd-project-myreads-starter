@@ -47,10 +47,17 @@ class MyBooksApp extends React.Component {
     }
 
     handleFilterTextChange(text) {
-        this.setState({
-            query: text
-        });
-        this.updateQuery(text);
+
+        text = text.trim();
+        this.setState({query: text});
+
+        if (text > '') {
+            this.updateQuery(text);
+        } else {
+            this.setState({
+                search: []
+            });
+        }
     }
 
     handleMoveBook(book, shelf) {
@@ -67,11 +74,6 @@ class MyBooksApp extends React.Component {
 
             const {books} = this.state;
 
-            // Before setting state, update the shelf of each book
-            // Iterate over each search result
-            // Check if its included in mybooks
-            // Yes ? set the shelf : set the shelf to none
-            // Finally, add the search results to state
             searchResults.map((result) => {
                 let currentBook = books.find((book) => book.id === result.id);
                 result.shelf = (currentBook) ? currentBook.shelf : 'none';
