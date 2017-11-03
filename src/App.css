@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Amaranth|Open+Sans:300,400');
+
 html, body, .root {
   height: 100%;
 }
@@ -6,6 +8,15 @@ body {
 }
 body, .app {
   background: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Amaranth', sans-serif;
 }
 
 /* main page */
@@ -39,6 +50,7 @@ body, .app {
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
 }
+
 .bookshelf-books {
   text-align: center;
 }

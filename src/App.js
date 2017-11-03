@@ -5,7 +5,7 @@ import * as BooksAPI from './utils/BooksAPI';
 import BookCase from './components/BookCase';
 import SearchBox from './components/SearchBox';
 import SearchResults from './components/SearchResults';
-import './App.css';
+import './assets/css/tachyons.css';
 
 class MyBooksApp extends React.Component {
 
