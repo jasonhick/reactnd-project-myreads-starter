@@ -5,7 +5,7 @@ import * as BooksAPI from './utils/BooksAPI';
 import BookCase from './components/BookCase';
 import SearchBox from './components/SearchBox';
 import SearchResults from './components/SearchResults';
-import './assets/css/tachyons.css';
+import './App.css';
 
 class MyBooksApp extends React.Component {
 
@@ -37,7 +37,7 @@ class MyBooksApp extends React.Component {
         books: [],
         query: '',
         search: [],
-        showSearchPage: false,
+        searchError: false
     };
 
     componentDidMount() {
@@ -71,15 +71,22 @@ class MyBooksApp extends React.Component {
 
     updateQuery = (query) => (
         BooksAPI.search(query.trim()).then((searchResults) => {
-
-            const {books} = this.state;
-
-            searchResults.map((result) => {
-                let currentBook = books.find((book) => book.id === result.id);
-                result.shelf = (currentBook) ? currentBook.shelf : 'none';
-            });
-
-            this.setState({search: searchResults});
+            if (searchResults.error) {
+                this.setState({
+                    searchError: true,
+                    search: []
+                });
+            } else {
+                const {books} = this.state;
+                searchResults.map((result) => {
+                    let currentBook = books.find((book) => book.id === result.id);
+                    result.shelf = (currentBook) ? currentBook.shelf : 'none';
+                });
+                this.setState({
+                    searchError: false,
+                    search: searchResults
+                });
+            }
         })
     );
 
@@ -91,7 +98,7 @@ class MyBooksApp extends React.Component {
             <Route exact path='/' render={() => (
                 <div className='list-books'>
                     <div className='list-books-title'>
-                        <h1>MyReads</h1>
+                        <h1 className='baskerville f1'>MyReads</h1>
                     </div>
                     <div className='list-books-content'>
                         <BookCase
@@ -104,6 +111,7 @@ class MyBooksApp extends React.Component {
                     </div>
                 </div>
             )}/>
+
             <Route exact path='/search' render={() => (
                 <div>
                     <SearchBox
@@ -112,7 +120,8 @@ class MyBooksApp extends React.Component {
                     <SearchResults
                         books={this.state.search}
                         shelves={this.state.shelves}
-                        onMoveBook={this.handleMoveBook}/>
+                        onMoveBook={this.handleMoveBook}
+                        searchError={this.state.searchError}/>
                 </div>
             )}/>
 

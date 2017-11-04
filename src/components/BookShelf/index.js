@@ -13,15 +13,17 @@ class BookShelf extends React.Component {
                 {books.error ? (
                     <h3>Sorry, there were no results for your search</h3>
                 ) : (
-                    <ol className='books-grid'>
-                        {books && books.map((book) => (
-                            <Book
-                                book={book}
-                                key={book.id}
-                                shelves={shelves}
-                                onMoveBook={onMoveBook}/>
-                        ))}
-                    </ol>
+                    <div className='bookshelf-books'>
+                        <ol className='books-grid'>
+                            {books && books.map((book) => (
+                                <Book
+                                    book={book}
+                                    key={book.id}
+                                    shelves={shelves}
+                                    onMoveBook={onMoveBook}/>
+                            ))}
+                        </ol>
+                    </div>
                 )}
             </div>
         );

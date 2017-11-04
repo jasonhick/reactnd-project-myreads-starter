@@ -22,22 +22,30 @@ class Book extends React.Component {
         const bookCover = book.imageLinks && book.imageLinks.thumbnail ? book.imageLinks.thumbnail : 'http://via.placeholder.com/130x200?text=404';
 
         return (
-            <li className='book'>
-                <div className='book-top'>
-                    <a href={book.previewLink} target='_new'>
-                        <img className='book-cover'
-                            src={bookCover}
-                            alt={book.title}/>
-                    </a>
-                    <ShelfChanger
-                        book={book}
-                        currentShelf={book.shelf}
-                        shelves={shelves}
-                        onMoveBook={onMoveBook}/>
+            <li>
+                <div className='book'>
+                    <div className='book-top'>
+                        <div className='book-cover'
+                            style={{
+                                width: 128,
+                                height: 193,
+                                backgroundImage: `url(${bookCover})`
+                            }}>
+                            <ShelfChanger
+                                book={book}
+                                currentShelf={book.shelf}
+                                shelves={shelves}
+                                onMoveBook={onMoveBook}/>
+                        </div>
+                    </div>
+                    <div className='book-title'>{book.title}</div>
+                    {book.authors && book.authors.map((author) => (
+                        <span className='book-authors'>{author}</span>
+                    ))}
                 </div>
-                <div className='book-title'>{book.title}</div>
-                <div className='book-title'>{book.subtitle}</div>
-                <div className='book-authors'>{this.getAuthors(book.authors)}</div>
+
+
+
             </li>
         );
     }
