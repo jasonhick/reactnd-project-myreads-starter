@@ -117,11 +117,15 @@ class MyBooksApp extends React.Component {
                     <SearchBox
                         query={this.state.query}
                         onFilterTextChange={this.handleFilterTextChange}/>
-                    <SearchResults
-                        books={this.state.search}
-                        shelves={this.state.shelves}
-                        onMoveBook={this.handleMoveBook}
-                        searchError={this.state.searchError}/>
+                    <div style={{
+                        marginTop: 100
+                    }}>
+                        <SearchResults
+                            books={this.state.search}
+                            shelves={this.state.shelves}
+                            onMoveBook={this.handleMoveBook}
+                            searchError={this.state.searchError}/>
+                    </div>
                 </div>
             )}/>
 

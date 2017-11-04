@@ -14,7 +14,7 @@ class SearchResults extends React.Component {
             <div className='bookshelf'>
                 <BookShelf
                     books={books}
-                    currentShelf='none'
+                    currentShelf='Search Results'
                     shelves={shelves}
                     onMoveBook={onMoveBook}/>
             </div>

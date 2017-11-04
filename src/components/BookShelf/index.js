@@ -9,7 +9,7 @@ class BookShelf extends React.Component {
 
         return (
             <div className='bookshelf'>
-                <h2 className='bookshelf-title'>{currentShelf.title}</h2>
+                <h2 className='bookshelf-title'>{currentShelf.title || currentShelf}</h2>
                 {books.error ? (
                     <h3>Sorry, there were no results for your search</h3>
                 ) : (
