@@ -1,19 +1,13 @@
-# My Reads
+# Project 1: My Reads
 
-My Reads is the first project in [Udacity's React Nanodegree Course](https://www.udacity.com/course/react-nanodegree--nd019).
-It contains a list of books that you **are reading**, **want to read** and **have read**.
-You may also search for certain books and add them to your lists.
+My Reads is the first project in the [React Nanodegree](https://www.udacity.com/course/react-nanodegree--nd019)
+It contains a list of books on different shelves: Reading, Have read and Want to read
+You may also search for certain books and add them to your lists
 
 ## Installation
+- Clone this repository onto your computer
+- Run `npm install` from the root directory of the app
+- Run `npm start`
+- The site should automatically launch at (http://localhost:3000)
 
-The following steps will help install and run **My Reads App** on your local computer.
-- Download or clone this repository
-- run `npm install` from the within the above root directory
-- run `npm start`
-- the app will run *locally* on `port: 3000` or simply go to `http://localhost:3000` in a your browser
-
-**IMPORTANT**: `Node JS` and `NPM (Node Package Manager)` is **required** to install and run the application. Visit [Node.js](https://nodejs.org/) for more information.
-
-### create-react-app
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+This app requires `Node JS` and `NPM` to be installed. Visit [Node.js](https://nodejs.org/) for more information.
